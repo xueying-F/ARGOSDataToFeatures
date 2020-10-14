@@ -13,7 +13,7 @@
 # Import modules
 import sys, os, arcpy
 
-#allow arcpy to overwrite outputs
+# Allow arcpy to overwrite outputs
 arcpy.env.overwriteOutput = True
 
 # Set input variables (Hard-wired)
@@ -25,6 +25,11 @@ outputSR = arcpy.SpatialReference(54002)
 # Create an empty feature class to which we'll add feature
 outPath, outName = os.path.split(outputFC)
 arcpy.CreateFeatureclass_management(outPath, outName,"POINT",'','','',outputSR)
+
+# Add TagID, LC, IQ, and Date fields to the output feature class
+arcpy.AddField_management(outputFC,"TagID","LONG")
+arcpy.AddField_management(outputFC,"LC","TEXT")
+arcpy.AddField_management(outputFC,"Date","DATE")
 
 #%% Construct a while loop to iterate through all lines in the datafile
 # Open the ARGOS data file for reading
